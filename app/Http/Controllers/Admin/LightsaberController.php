@@ -40,7 +40,13 @@ class LightsaberController extends Controller
     {
         // dump the whole request
         //dd($request->all());
-
+        $val_data = $request->validate([
+            'name' => 'required|min:5|max:50',
+            'image' => 'nullable|max:255',
+            'price' => 'nullable',
+            'description' => 'nullable'
+        ]);
+        //dd($val_data);
         // TODO: validate the request fields
 
         // create a new instance
@@ -54,7 +60,7 @@ class LightsaberController extends Controller
 
 
         // return to a get route POST/REDIRECT/GET
-        return to_route('lightsabers.index');
+        return to_route('lightsabers.index')->with('message', 'Lightsaber created successfully');
     }
 
     /**
@@ -76,7 +82,7 @@ class LightsaberController extends Controller
      */
     public function edit(Lightsaber $lightsaber)
     {
-        //
+        return view('admin.lightsabers.edit', compact('lightsaber'));
     }
 
     /**
@@ -88,7 +94,27 @@ class LightsaberController extends Controller
      */
     public function update(Request $request, Lightsaber $lightsaber)
     {
-        //
+        //dd($request->all(), $lightsaber);
+
+        // Validate data
+        $val_data = $request->validate([
+            'name' => 'required|min:5|max:50',
+            'image' => 'nullable|max:255',
+            'price' => 'nullable',
+            'description' => 'nullable'
+        ]);
+        //dd($val_data);
+        /*
+        $data = [
+            'name' => $request->name,
+            'image' => $request->image,
+            'price' => $request->price,
+            'in_stock' => $request->in_stock,
+            'description' => $request->description
+        ]; */
+        $lightsaber->update($val_data);
+
+        return to_route('lightsabers.index')->with('message', "Lightsaber: $lightsaber->name updated successfully");
     }
 
     /**
@@ -100,5 +126,7 @@ class LightsaberController extends Controller
     public function destroy(Lightsaber $lightsaber)
     {
         //
+        $lightsaber->delete();
+        return to_route('lightsabers.index')->with('message', "Lightsaber deleted successfully");
     }
 }

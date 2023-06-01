@@ -24,5 +24,18 @@ Route::get('/lightsabers/{lightsaber}', [PageController::class, 'saber'])->name(
 Route::get('/contacts', [PageController::class, 'contacts'])->name('contacts');
 
 Route::resource('/admin/lightsabers', LightsaberController::class);
+/*
+Route::get('/lightsabers', [LightsaberController::class, 'index']);
+Route::get('/lightsabers/create', [LightsaberController::class, 'create']);
+Route::post('/lightsabers', [LightsaberController::class, 'store']);
+//Route::put('/admin/lightsabers/{lightsaber}', [LightsaberController::class, 'update'])->name('lightsabers.update');
+Route::get('/lightsabers/{lightsaber}', [LightsaberController::class, 'show']);
+Route::get('/lightsabers/{lightsaber}/edit', [LightsaberController::class, 'edit']);
+
+Route::delete('/lightsabers/{lightsaber}', [LightsaberController::class, 'destroy']); */
+
+
+
+
 
 Route::resource('/admin/posts', PostController::class);
